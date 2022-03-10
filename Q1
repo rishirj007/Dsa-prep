@@ -1,0 +1,40 @@
+Problem Description -:  Given two non-negative integers n1 and n2, where n1<n2. The task is to find the total number of integers in the range [n1, n2](both inclusive) which have no repeated digits.
+For example:Suppose n1=11 and n2=15.There is the number 11, which has repeated digits, but 12, 13, 14 and 15 have no repeated digits. So, the output is 4.
+
+sol:
+#include<bits/stdc++.h>
+#include<unordered_set>
+using namespace std;
+
+int help(int n)
+{
+    unordered_set<int> s;
+    while(n!= 0)
+    {
+        int r = n%10;
+        if(s.find(r) != s.end())
+        {
+            return 0;
+        }
+        s.insert(r);
+        n = n/10;
+        
+    }
+    return 1;
+}
+int calculate(int l,int r)
+{
+    int ans = 0;
+    for(int i = l;i<r+1;i++)
+    {
+        ans+= help(i);
+    }
+    return ans;
+}
+
+int main() {
+	int l,r;
+	cin>>l>>r;
+	
+	cout<<calculate(l,r);
+}
