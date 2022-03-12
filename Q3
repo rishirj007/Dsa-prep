@@ -1,0 +1,42 @@
+Subarray with given sum 
+Given an unsorted array A of size N that contains only non-negative integers, find a continuous sub-array which adds to a given number S.
+In case of multiple subarrays, return the subarray which comes first on moving from left to right.
+
+Example 1:
+
+Input:
+N = 5, S = 12
+A[] = {1,2,3,7,5}
+Output: 2 4
+Explanation: The sum of elements 
+from 2nd position to 4th position 
+is 12.
+ 
+sol:
+vector<int> subarraySum(int arr[], int n, long long s)
+    {
+        int si = 0,ei = 1
+        int sum = arr[0];
+        vector<int> ans;
+        while(ei <= n)
+        {
+            if(sum == s)
+            {
+                ans.push_back(si+1);
+                ans.push_back(ei);     //according to 1 based indexing
+                return ans;
+            }
+            if(sum > s && si<ei)    //if sum is greater then s we subtract the present si value of arr and shifts the si forward
+            {
+                sum = sum - arr[si];
+                si++;
+            }
+            else
+            {
+                sum = sum + arr[ei];  //if sum is less then we add the present value of ei of arr and inc. ei value forward
+                ei++;
+            }
+        }
+        return {-1}; //if not found till end return -1
+    }
+};
